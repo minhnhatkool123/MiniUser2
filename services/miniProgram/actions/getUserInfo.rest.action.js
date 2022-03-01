@@ -6,8 +6,8 @@ const JsonWebToken = require('jsonwebtoken');
 module.exports = async function (ctx) {
 	try {
 		const userInfo = { ...ctx.meta.auth.data }
-		delete userInfo.password
-		//console.log('miniProgramInfo', ctx.meta.auth)
+		delete userInfo.password;
+		delete userInfo.accessToken;
 
 		return {
 			code: 1000,
