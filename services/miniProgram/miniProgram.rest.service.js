@@ -4,7 +4,7 @@ const MiniProgramInfoConstant = require('./constants/MiniProgramInfoConstant');
 const MeAPI = require('../../serviceDependencies/MEAPI');
 
 module.exports = {
-	name: 'MiniProgram.rest',
+	name: 'MiniProgram1.rest',
 
 	version: 1,
 
@@ -23,201 +23,56 @@ module.exports = {
 		 * Actions
 		 */
 	actions: {
-		createOrder: {
+		editPassword: {
 			rest: {
-				method: 'POST',
-				fullPath: '/v1/External/MiniProgram/CreateOrder',
+				method: 'PATCH',
+				fullPath: '/v1/External/MiniProgram/EditPassword',
 				auth: {
-					strategies: ['MiniProgram'],
-					mode: 'required', // 'required', 'optional', 'try'
+					strategies: ['Test'],
+					mode: 'try', // 'required', 'optional', 'try'
 				},
+
 			},
 			params: {
 				body: {
 					$$type: 'object',
-					userToken: 'string',
-					partnerTransaction: 'string',
-					amount: 'number',
-					redirectUrl: 'string',
-					failedUrl: 'string',
-					ipnUrl: 'string',
-					description: 'string',
+					password: 'string',
+					newPassword: 'string',
 				},
 			},
-			handler: require('./actions/createOrder.rest.action'),
+			handler: require('./actions/editPassword.action'),
 		},
-		getUserInformation: {
+		editUserInfo: {
 			rest: {
-				method: 'POST',
-				fullPath: '/v1/External/MiniProgram/UserInformation',
+				method: 'PATCH',
+				fullPath: '/v1/External/MiniProgram/EditUserInfo',
 				auth: {
-					strategies: ['MiniProgram'],
-					mode: 'required', // 'required', 'optional', 'try'
+					strategies: ['Test'],
+					mode: 'try', // 'required', 'optional', 'try'
 				},
+
 			},
 			params: {
 				body: {
 					$$type: 'object',
-					userToken: 'string',
+					name: { type: "string", optional: true },
+					email: { type: "string", optional: true },
+					gender: { type: "string", optional: true },
+					avatar: { type: "string", optional: true }
 				},
 			},
-			handler: require('./actions/getUserInformation.rest.action'),
+			handler: require('./actions/editUserInfo.rest.action'),
 		},
-		add: {
+		userInfo: {
 			rest: {
-				method: 'POST',
-				fullPath: '/v1/Internal/MiniProgram/add',
+				method: 'GET',
+				fullPath: '/v1/External/MiniProgram/UserInfo',
 				auth: {
-					strategies: ['Default'],
+					strategies: ['Test'],
 					mode: 'try', // 'required', 'optional', 'try'
 				},
 			},
-			params: {
-				body: {
-					$$type: 'object',
-					miniProgramId: 'number',
-					url: 'string',
-					ipnUrl: 'string',
-					scope: { type: 'array', items: 'string' },
-					state: 'string',
-					name: 'string',
-					logo: 'string',
-				},
-			},
-			handler: require('./actions/add.rest.action'),
-		},
-		edit: {
-			rest: {
-				method: 'PUT',
-				fullPath: '/v1/Internal/MiniProgram/:miniProgramId',
-				auth: {
-					strategies: ['Default'],
-					mode: 'try', // 'required', 'optional', 'try'
-				},
-			},
-			params: {
-				body: {
-					$$type: 'object',
-				},
-			},
-			handler: require('./actions/edit.rest.action'),
-		},
-		search: {
-			rest: {
-				method: 'POST',
-				fullPath: '/v1/Internal/MiniProgram/search',
-				auth: {
-					strategies: ['Local'],
-					mode: 'try', // 'required', 'optional', 'try'
-				},
-			},
-			params: {
-				body: 'object',
-			},
-			handler: require('./actions/search.rest.action'),
-		},
-		requestPermission: {
-			rest: {
-				method: 'POST',
-				fullPath: '/v1/External/MiniProgram/RequestPermission',
-				auth: {
-					strategies: ['Default'],
-					mode: 'required', // 'required', 'optional', 'try'
-				},
-			},
-			params: {
-				body: {
-					$$type: 'object',
-					userToken: 'string',
-					securityCode: 'string',
-				},
-			},
-			handler: require('./actions/requestUserPermission.rest.action'),
-		},
-		getUserToken: {
-			rest: {
-				method: 'POST',
-				fullPath: '/v1/External/MiniProgram/GetUserToken',
-				auth: {
-					strategies: ['Default'],
-					mode: 'required', // 'required', 'optional', 'try'
-				},
-			},
-			params: {
-				body: {
-					$$type: 'object',
-					miniProgramId: 'number',
-				},
-			},
-			handler: require('./actions/getUserToken.rest.action'),
-		},
-		getOrderInformation: {
-			rest: {
-				method: 'POST',
-				fullPath: '/v1/External/MiniProgram/GetOrderInformation',
-				auth: {
-					strategies: ['Default'],
-					mode: 'required', // 'required', 'optional', 'try'
-				},
-			},
-			params: {
-				body: {
-					$$type: 'object',
-					transaction: 'string',
-				},
-			},
-			handler: require('./actions/getOrderInformation.rest.action'),
-		},
-		pay: {
-			rest: {
-				method: 'POST',
-				fullPath: '/v1/External/MiniProgram/Pay',
-				auth: {
-					strategies: ['Default'],
-					mode: 'required', // 'required', 'optional', 'try'
-				},
-			},
-			params: {
-				body: {
-					$$type: 'object',
-					transaction: 'string',
-					payment: 'object',
-					clientId: 'string',
-				},
-			},
-			handler: require('./actions/pay.rest.action'),
-		},
-		getList: {
-			rest: {
-				method: 'POST',
-				fullPath: '/v1/External/MiniProgram/GetList',
-				auth: {
-					strategies: ['Default'],
-					mode: 'required', // 'required', 'optional', 'try'
-				},
-			},
-			params: {
-				body: {
-					$$type: 'object',
-					id: {
-						type: 'number',
-						optional: true,
-					},
-					miniProgramId: {
-						type: 'number',
-						optional: true,
-					},
-					state: {
-						type: 'array',
-						optional: true,
-						items: {
-							type: 'string',
-							enum: _.values(MiniProgramInfoConstant.STATE),
-						},
-					},
-				},
-			},
-			handler: require('./actions/getList.rest.action'),
+			handler: require('./actions/getUserInfo.rest.action'),
 		},
 	},
 
