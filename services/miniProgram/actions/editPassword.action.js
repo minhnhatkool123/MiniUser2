@@ -14,10 +14,17 @@ module.exports = async function (ctx) {
 		//     };
 		// }
 
-		console.log(
-			"ctx.meta.auth.credentials.id ",
-			ctx.meta.auth?.credentials?.id
-		);
+		// console.log(
+		// 	"ctx.meta.auth.credentials.id ",
+		// 	ctx.meta.auth?.credentials?.id
+		// );
+
+		if (_.get(ctx, "meta.auth.credentials.id", null) === null) {
+			return {
+				code: 1001,
+				message: "Không tồn tại id",
+			};
+		}
 
 		const payload = ctx.params.body;
 		const obj = {
@@ -29,7 +36,7 @@ module.exports = async function (ctx) {
 			"v1.MiniProgramUserModel.findOne",
 			[
 				{
-					id: ctx.meta.auth?.credentials?.id,
+					id: ctx.meta.auth.credentials.id,
 				},
 			]
 		);
@@ -54,14 +61,24 @@ module.exports = async function (ctx) {
 		}
 
 		const hashPassword = await bcrypt.hash(obj.newPassword, 10);
-		await this.broker.call("v1.MiniProgramUserModel.findOneAndUpdate", [
-			{
-				id: userInfo.id,
-			},
-			{
-				password: hashPassword,
-			},
-		]);
+		userInfo = await this.broker.call(
+			"v1.MiniProgramUserModel.findOneAndUpdate",
+			[
+				{
+					id: userInfo.id,
+				},
+				{
+					password: hashPassword,
+				},
+			]
+		);
+
+		if (_.get(userInfo, "id", null) === null) {
+			return {
+				code: 1001,
+				message: "Cập nhập mật khẩu thất bại",
+			};
+		}
 
 		return {
 			code: 1000,

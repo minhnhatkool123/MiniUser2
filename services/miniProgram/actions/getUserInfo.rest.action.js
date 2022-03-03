@@ -5,8 +5,31 @@ const JsonWebToken = require("jsonwebtoken");
 
 module.exports = async function (ctx) {
 	try {
-		const userInfo = { ...ctx.meta.auth?.data };
+		if (_.get(ctx, "meta.auth.credentials.id", null) === null) {
+			return {
+				code: 1001,
+				message: "Không tồn tại id",
+			};
+		}
+
 		//console.log("ctx.meta.auth.data", ctx.meta.auth.data);
+
+		let userInfo = await this.broker.call(
+			"v1.MiniProgramUserModel.findOne",
+			[
+				{
+					id: ctx.meta.auth.credentials.id,
+				},
+				"-password",
+			]
+		);
+
+		if (_.get(userInfo, "id", null) === null) {
+			return {
+				code: 1001,
+				message: "Lấy thông tin thất bại",
+			};
+		}
 
 		return {
 			code: 1000,

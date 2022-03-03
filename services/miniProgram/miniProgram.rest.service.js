@@ -52,10 +52,10 @@ module.exports = {
 			params: {
 				body: {
 					$$type: "object",
-					name: { type: "string", optional: true },
-					email: { type: "string", optional: true },
-					gender: { type: "string", optional: true },
-					avatar: { type: "string", optional: true },
+					name: "string|optional",
+					phone: "string|optional",
+					gender: "string|optional",
+					avatar: "string|optional",
 				},
 			},
 			handler: require("./actions/editUserInfo.rest.action"),
