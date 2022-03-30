@@ -7,18 +7,6 @@ const bcrypt = require("bcrypt");
 
 module.exports = async function (ctx) {
 	try {
-		// if (!ctx.meta.auth.data.password) {
-		//     return {
-		//         code: 1001,
-		//         message: 'Cập nhập mật khẩu thất bại',
-		//     };
-		// }
-
-		// console.log(
-		// 	"ctx.meta.auth.credentials.id ",
-		// 	ctx.meta.auth?.credentials?.id
-		// );
-
 		if (_.get(ctx, "meta.auth.credentials.userId", null) === null) {
 			return {
 				code: 1001,
@@ -26,7 +14,7 @@ module.exports = async function (ctx) {
 			};
 		}
 
-		const payload = ctx.params.body;
+		const payload = ctx.params.input;
 		const obj = {
 			password: payload.password,
 			newPassword: payload.newPassword,

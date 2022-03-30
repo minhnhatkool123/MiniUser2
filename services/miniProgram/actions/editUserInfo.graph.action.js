@@ -1,12 +1,9 @@
 const _ = require("lodash");
-
 const { MoleculerError } = require("moleculer").Errors;
-const JsonWebToken = require("jsonwebtoken");
-//const MiniProgramConstant = require('../constants/MiniProgramInfoConstant');
 
 module.exports = async function (ctx) {
 	try {
-		const payload = ctx.params.body;
+		const payload = ctx.params.input;
 		const obj = {};
 
 		if (!_.isNil(_.get(payload, "name", null))) {
