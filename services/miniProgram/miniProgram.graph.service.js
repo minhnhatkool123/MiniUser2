@@ -17,7 +17,7 @@ module.exports = {
 			input: require("./graphql/input"),
 			enum: require("./graphql/enum"),
 			resolvers: {
-				MutationNode2: {
+				MutationUserInfo: {
 					editPassword: {
 						action: "v1.MiniProgram1.graph.editPassword",
 					},
@@ -25,7 +25,7 @@ module.exports = {
 						action: "v1.MiniProgram1.graph.editUserInfo",
 					},
 				},
-				QueryNode2: {
+				QueryUserInfo: {
 					getUserInfo: {
 						action: "v1.MiniProgram1.graph.userInfo",
 					},
@@ -68,10 +68,10 @@ module.exports = {
 			},
 			handler: require("./actions/editUserInfo.graph.action"),
 		},
-		graphql: {
+		graphqlUserInfo: {
 			graphql: {
-				query: "QueryNode2:QueryNode2",
-				mutation: "MutationNode2:MutationNode2",
+				query: "QueryUserInfo:QueryUserInfo",
+				mutation: "MutationUserInfo:MutationUserInfo",
 			},
 			handler(ctx) {
 				return true;

@@ -1,13 +1,13 @@
 const gql = require("moleculer-apollo-server").moleculerGql;
 
 module.exports = gql`
-	type QueryNode2 {
+	type QueryUserInfo {
 		getUserInfo: GetUserInfoMessageResponse!
 	}
 
-	type MutationNode2 {
-		editPassword(input: EditPasswordInfo!): MessageResponse!
-		editUserInfo(input: EditUserInfo!): MessageResponse!
+	type MutationUserInfo {
+		editPassword(input: EditPasswordInput!): MessageResponse!
+		editUserInfo(input: EditUserInput!): MessageResponse!
 	}
 
 	type GetUserInfoMessageResponse {
@@ -17,7 +17,7 @@ module.exports = gql`
 	}
 
 	type UserInfo {
-		id: BigInt
+		id: Int
 		name: String
 		phone: String
 		email: String

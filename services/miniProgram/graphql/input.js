@@ -1,12 +1,12 @@
 const gql = require("moleculer-apollo-server").moleculerGql;
 
 module.exports = gql`
-	input EditPasswordInfo {
+	input EditPasswordInput {
 		password: String!
 		newPassword: String!
 	}
 
-	input EditUserInfo {
+	input EditUserInput {
 		name: String
 		phone: String
 		gender: UserGender
