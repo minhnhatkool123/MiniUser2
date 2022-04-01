@@ -1,9 +1,14 @@
 const _ = require("lodash");
+
 const { MoleculerError } = require("moleculer").Errors;
+const JsonWebToken = require("jsonwebtoken");
+//const MiniProgramConstant = require('../constants/MiniProgramInfoConstant');
 
 module.exports = async function (ctx) {
 	try {
-		const payload = ctx.params.input;
+		const payload = ctx.service.name.includes(".graph")
+			? ctx.params.input
+			: ctx.params.body;
 		const obj = {};
 
 		if (!_.isNil(_.get(payload, "name", null))) {

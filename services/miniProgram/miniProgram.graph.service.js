@@ -44,29 +44,13 @@ module.exports = {
 	 */
 	actions: {
 		userInfo: {
-			handler: require("./actions/getUserInfo.graph.action"),
+			handler: require("./actions/getUserInfo.action"),
 		},
 		editPassword: {
-			params: {
-				input: {
-					$$type: "object",
-					password: "string",
-					newPassword: "string",
-				},
-			},
-			handler: require("./actions/editPassword.graph.action"),
+			handler: require("./actions/editPassword.action"),
 		},
 		editUserInfo: {
-			params: {
-				input: {
-					$$type: "object",
-					name: "string|optional",
-					phone: "string|optional",
-					gender: "string|optional",
-					avatar: "string|optional",
-				},
-			},
-			handler: require("./actions/editUserInfo.graph.action"),
+			handler: require("./actions/editUserInfo.action"),
 		},
 		graphqlUserInfo: {
 			graphql: {

@@ -27,7 +27,7 @@ module.exports = {
 				method: "PUT",
 				fullPath: "/v1/External/MiniProgram/EditPassword",
 				auth: {
-					strategies: ["Default"],
+					strategies: ["Default", "Admin"],
 					mode: "required", // 'required', 'optional', 'try'
 				},
 			},
@@ -45,7 +45,7 @@ module.exports = {
 				method: "PUT",
 				fullPath: "/v1/External/MiniProgram/EditUserInfo",
 				auth: {
-					strategies: ["Default"],
+					strategies: ["Default", "Admin"],
 					mode: "required", // 'required', 'optional', 'try'
 				},
 			},
@@ -58,18 +58,18 @@ module.exports = {
 					avatar: "string|optional",
 				},
 			},
-			handler: require("./actions/editUserInfo.rest.action"),
+			handler: require("./actions/editUserInfo.action"),
 		},
 		userInfo: {
 			rest: {
 				method: "GET",
 				fullPath: "/v1/External/MiniProgram/UserInfo",
 				auth: {
-					strategies: ["Default"],
+					strategies: ["Default", "Admin"],
 					mode: "required", // 'required', 'optional', 'try'
 				},
 			},
-			handler: require("./actions/getUserInfo.rest.action"),
+			handler: require("./actions/getUserInfo.action"),
 		},
 	},
 

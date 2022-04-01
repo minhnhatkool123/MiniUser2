@@ -23,7 +23,7 @@ module.exports = gql`
 		email: String
 		gender: String
 		avatar: String
-		createdAt: String
-		updatedAt: String
+		createdAt: DateTime
+		updatedAt: DateTime
 	}
 `;
